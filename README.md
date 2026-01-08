@@ -12,6 +12,54 @@ Simularea adresează problema gestionării concurente a tranzacțiilor bancare (
 
 Sistemul demonstrează utilizarea comunicării între agenți (FIPA-ACL), descoperirea serviciilor (Directory Facilitator - DF) și gestionarea thread-urilor Swing pentru interfețe grafice responsive.
 
+## Modul Asistent Inteligent (Python + Pydantic + Ollama)
+
+Proiectul include un agent asistent ("Smart Teller") care rulează separat și traduce comenzile în limbaj natural (ex: "Vreau sa scot 100 lei") în comenzi structurate pentru sistemul JADE.
+
+### Cerințe Python
+1. Python 3.8+ instalat.
+2. [Ollama](https://ollama.com/) instalat.
+
+### Pasul 1: Pornirea Serverului Ollama
+Înainte de a rula asistentul, trebuie să aveți serverul Ollama activ.
+1. Deschideți un terminal nou.
+2. Rulați comanda (dacă serviciul nu rulează deja în background):
+   ```bash
+   ollama serve
+   ```
+   *Notă: Pe Windows, aplicația Ollama rulează de obicei automat în system tray după instalare. Verificați dacă iconița există lângă ceas.*
+3. Asigurați-vă că aveți modelul descărcat (deschideți alt terminal dacă cel cu serve e ocupat):
+   ```bash
+   ollama pull llama3
+   ```
+   *(Sau `mistral` / `gemma` în funcție de preferințe)*.
+
+### Pasul 2: Rulare Asistent
+Am inclus scripturi automate care configurează mediul virtual și instalează dependențele la prima rulare:
+
+- **Windows**: Dublu-click pe `run_assistant.bat` (sau rulare din terminal).
+- **macOS/Linux**: Rulați în terminal:
+  ```bash
+  chmod +x run_assistant.sh
+  ./run_assistant.sh
+  ```
+
+### Execuție Manuală
+1. Navigați în folderul `python_agent`:
+   ```bash
+   cd python_agent
+   ```
+2. Instalați dependențele:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Porniți asistentul:
+   ```bash
+   python financial_assistant.py
+   ```
+
+Acest agent demonstrează integrarea tehnologiilor moderne LLM cu sisteme clasice distribuite, folosind **Pydantic** pentru validarea strictă a datelor generate de AI.
+
 ## Structura Proiectului
 
 - `src/`: Codul sursă Java al agenților.

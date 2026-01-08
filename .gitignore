@@ -30,5 +30,17 @@ MTPs-Main-Container.txt
 *.zip
 *.rar
 
+# Python Agent & Environment
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.env
+.pytest_cache/
+python_agent/.venv/
+
 # Keep project dependencies
 !lib/jade.jar
