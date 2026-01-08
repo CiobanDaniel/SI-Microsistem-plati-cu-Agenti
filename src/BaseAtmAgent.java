@@ -23,7 +23,7 @@ public class BaseAtmAgent extends Agent {
     protected JFrame frame;
     protected JTextArea displayArea;
     protected JTextField cardField, pinField, amountField;
-    protected boolean isLoggedIn = false;
+    public boolean isLoggedIn = false; // Changed to public for direct access from subclasses
 
     @Override
     protected void setup() {
@@ -82,7 +82,10 @@ public class BaseAtmAgent extends Agent {
         } catch (FIPAException fe) {
         }
         if (frame != null) {
-            frame.dispose();
+            // Folosim invokeLater pentru a evita blocarea si InterruptedException la System.exit(0)
+            SwingUtilities.invokeLater(() -> {
+                try { frame.dispose(); } catch (Exception e) {}
+            });
         }
         System.out.println("ATM " + getLocalName() + " s-a inchis.");
     }
@@ -162,6 +165,16 @@ public class BaseAtmAgent extends Agent {
         // Implementarea de baza a ferestrei
         frame = new JFrame("ATM - " + getLocalName());
         frame.setSize(400, 500);
+        
+        // Cand inchidem fereastra ATM-ului, "omorim" doar acest agent
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                doDelete(); // Aceasta va apela takeDown() care inchide fereastra
+            }
+        });
+
         frame.setLayout(new BorderLayout());
         
         // Panou Inputs

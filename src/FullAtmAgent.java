@@ -26,6 +26,7 @@ public class FullAtmAgent extends BaseAtmAgent {
         
         JButton btnLogout = new JButton("Delogare");
         btnLogout.addActionListener(e -> {
+            isLoggedIn = false; // Resetare sesiune direct
             cardField.setText("");
             pinField.setText("");
             amountField.setText("");

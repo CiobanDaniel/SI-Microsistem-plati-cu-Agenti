@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileInputStream;
@@ -96,12 +95,22 @@ public class BankAgent extends Agent {
     private void createGUI() {
         frame = new JFrame("Panou Administrare Banca - " + getLocalName());
         frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Nu inchidem agentul de la X, folosim Delete
+        // Modificare: Confirmare le inchidere si oprire totala a aplicatiei
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                // Do nothing or minimize
-                frame.setState(Frame.ICONIFIED);
+                int confirm = JOptionPane.showConfirmDialog(frame, 
+                    "Sunteti sigur ca doriti sa inchideti Banca si sa opriti tot sistemul?", 
+                    "Inchidere Sistem", 
+                    JOptionPane.YES_NO_OPTION);
+                
+                if (confirm == JOptionPane.YES_OPTION) {
+                    // Salvare date finala
+                    saveData();
+                    // Inchidere radicala a JVM pentru a nu lasa procese JADE agatate
+                    System.exit(0);
+                }
             }
         });
 
