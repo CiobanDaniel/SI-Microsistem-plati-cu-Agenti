@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Start JADE Bank System (Maven)",
+            "request": "launch",
+            "mainClass": "jade.Boot",
+            "projectName": "si_proiect",
+            "args": "-gui -agents Banca:BankAgent;ATM1:FullAtmAgent;ATM2:WithdrawAtmAgent",
+            "env": {
+                "CLASSPATH": "${workspaceFolder}/lib/jade.jar;${workspaceFolder}/target/classes"
+            }
+        }
+    ]
+}
